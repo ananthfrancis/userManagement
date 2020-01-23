@@ -1,10 +1,18 @@
-var request = require("request-promise");
-var fs = require("fs");
+const User = require('../models/User')
 
-async function register() {
+async function checkEmailExist(email) {
   try {
-    //Register Function
-    return "Registered Successfully";
+    const isEmailExist = User.findOne({ email })
+    return isEmailExist
+  } catch (e) {
+    throw e;
+  }
+}
+
+async function register(userObj) {
+  try {
+    const newUser = new User(userObj)
+    return newUser.save()
   } catch (e) {
     throw e;
   }
@@ -36,3 +44,11 @@ async function changePassword() {
     throw e;
   }
 }
+
+module.exports = {
+  register,
+  login,
+  resetPassword,
+  changePassword,
+  checkEmailExist
+};

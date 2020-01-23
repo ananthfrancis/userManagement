@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const userController = require('../controllers/userManagement.controller');
 /* GET home page. */
 router.post('/register', userController.registerUser);
