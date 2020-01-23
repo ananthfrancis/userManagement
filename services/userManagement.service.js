@@ -1,9 +1,7 @@
 const User = require('../models/User')
-
 async function checkEmailExist(email) {
   try {
-    const isEmailExist = User.findOne({ email })
-    return isEmailExist
+    return User.findOne({ email })
   } catch (e) {
     throw e;
   }
