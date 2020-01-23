@@ -17,10 +17,10 @@ connectDB(db)
 app.use(logger('dev'))
 
 //BodyParser
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json({strict: false}));
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json({strict: false}))
 
-app.use(cookieParser());
+app.use(cookieParser())
 
 app.use('/api/um', userRoutes)
 
@@ -42,4 +42,4 @@ app.use('/api/um', userRoutes)
 //   res.send('error');
 // });
 
-app.listen(4000, () => console.log('app listening on port 4000'));
+app.listen(4000, () => console.log('app listening on port 4000'))

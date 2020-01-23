@@ -3,7 +3,7 @@ async function checkEmailExist(email) {
   try {
     return User.findOne({ email })
   } catch (e) {
-    throw e;
+    throw e
   }
 }
 
@@ -12,34 +12,34 @@ async function register(userObj) {
     const newUser = new User(userObj)
     return newUser.save()
   } catch (e) {
-    throw e;
+    throw e
   }
 }
 
 async function login() {
   try {
     //Login Function
-    return "Login Success";
+    return "Login Success"
   } catch (e) {
-    throw e;
+    throw e
   }
 }
 
 async function resetPassword() {
   try {
     //reset Password Function
-    return "Reset Password Success";
+    return "Reset Password Success"
   } catch (e) {
-    throw e;
+    throw e
   }
 }
 
 async function changePassword() {
   try {
     //change Password Function
-    return "Change Password Success";
+    return "Change Password Success"
   } catch (e) {
-    throw e;
+    throw e
   }
 }
 
@@ -49,4 +49,4 @@ module.exports = {
   resetPassword,
   changePassword,
   checkEmailExist
-};
+}

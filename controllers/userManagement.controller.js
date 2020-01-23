@@ -1,5 +1,5 @@
 /* eslint-disable strict */
-const userManagementService = require("../services/userManagement.service");
+const userManagementService = require("../services/userManagement.service")
 const userValidation = require('../validation/userManagement.validation')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -7,7 +7,7 @@ const { SECRET } = require('../config/keys')
 
 async function registerUser(req, res) {
 
-  const { email, firstName, lastName, phoneNumber } = req.body;
+  const { email, firstName, lastName, phoneNumber } = req.body
 
   try {
     //Validate Request Data
@@ -19,7 +19,7 @@ async function registerUser(req, res) {
     const emailExist = await userManagementService.checkEmailExist(email)
     if(emailExist) {
       return res.status(400)
-        .send({ message: "Email Already Exist" });
+        .send({ message: "Email Already Exist" })
     }
 
     //Hash Password
@@ -33,10 +33,10 @@ async function registerUser(req, res) {
       firstName,
       lastName,
       phoneNumber
-    });
+    })
     const message = users.email + " Is Registered Successfully"
     return res.status(201)
-      .send({ message });
+      .send({ message })
   } catch (e) {
     return res.status(500)
       .send(e)
@@ -44,7 +44,7 @@ async function registerUser(req, res) {
 }
 
 async function login(req, res) {
-  const { email, password } = req.body;
+  const { email, password } = req.body
 
   try {
     //Validate Request Data
@@ -56,52 +56,52 @@ async function login(req, res) {
     const user = await userManagementService.checkEmailExist(email)
     if(!user) {
       return res.status(400)
-        .send({ message: "Your Email Id Doesn't Exist" });
+        .send({ message: "Your Email Id Doesn't Exist" })
     }
     //Authenticate Password
     const validPass = await bcrypt.compare(password, user.password)
     if(!validPass) {
       return res.status(400)
-        .send({ message: "Your Email or Password is Invalid" });
+        .send({ message: "Your Email or Password is Invalid" })
     }
     const token = jwt.sign({ _id: user._id }, SECRET, { expiresIn: '1m' })
     return res.header('auth-token', token)
-        .send({ token: token });
+        .send({ token: token })
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
 }
 
 async function resetPassword(req, res) {
-  const { email, password } = req.body;
+  const { email, password } = req.body
 
   try {
     const response = await userManagementService.resetPassword({
       email,
       password
-    });
+    })
 
     if (response === "Reset Password Success") {
-      res.send(response);
+      res.send(response)
     }
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
 }
 
 async function changePassword(req, res) {
-  const { emailId, oldPassword, newPassword } = req.body;
+  const { emailId, oldPassword, newPassword } = req.body
 
   try {
     const response = await userManagementService.changePassword({
       emailId,
       password
-    });
+    })
     if (response === "Change Password Success") {
-      res.send(response);
+      res.send(response)
     }
   } catch (e) {
-    res.status(500).send(e);
+    res.status(500).send(e)
   }
 }
 
@@ -110,4 +110,4 @@ module.exports = {
   login,
   resetPassword,
   changePassword
-};
+}
