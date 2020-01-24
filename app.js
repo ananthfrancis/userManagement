@@ -6,6 +6,9 @@ const bodyParser = require('body-parser')
 const userRoutes = require('./routes/index')
 const { connectDB } = require('./utils/mongodb')
 const { resourceNotFound, accessDenied } = require('./controllers/userManagement.controller')
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./docs/swagger.yaml');
 
 const app = express()
 
@@ -26,6 +29,10 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json({strict: false}))
 
 app.use(cookieParser())
+
+
+
+app.use('   ', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/um', userRoutes)
 
