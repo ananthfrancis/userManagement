@@ -72,34 +72,23 @@ async function login(req, res) {
   }
 }
 
-async function resetPassword(req, res) {
-  const { email, password } = req.body
+async function resourceNotFound(req, res) {
 
   try {
-    const response = await userManagementService.resetPassword({
-      email,
-      password
-    })
-
-    if (response === "Reset Password Success") {
-      res.send(response)
-    }
+    //Default Route
+    return res.status(404)
+      .send({ message: "Resources your looking for is not available" })
   } catch (e) {
     res.status(500).send(e)
   }
 }
 
-async function changePassword(req, res) {
-  const { emailId, oldPassword, newPassword } = req.body
+async function accessDenied(req, res) {
 
   try {
-    const response = await userManagementService.changePassword({
-      emailId,
-      password
-    })
-    if (response === "Change Password Success") {
-      res.send(response)
-    }
+    //Access Denied
+    return res.status(401)
+      .send({ message: "You're not auhtorized. Please check API end point" })
   } catch (e) {
     res.status(500).send(e)
   }
@@ -108,6 +97,6 @@ async function changePassword(req, res) {
 module.exports = {
   registerUser,
   login,
-  resetPassword,
-  changePassword
+  resourceNotFound,
+  accessDenied
 }
